@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Quiz</string>
+    <string name="texto">TextView</string>
+    <string name="true_button">SIIIIIIIIMMMMMM</string>
+    <string name="false_button">NÃÃÃÃÃÃOOOOOO</string>
+    <string name="botao_proximo">Pa Frente</string>
+    <string name="voltar">Voltar</string>
+    <string name="todo">TODO</string>
+
+    <string name="pontuacao">Pontuacao: </string>
+
+    <string name="questao1">Você quer trocar um congresso pela aprovação em Arquitetura?</string>
+    <string name="questao2">Você quer apresentar o projeto?</string>
+    <string name="questao3">Carine está apaixonada pelo boy que fez eletro aki no IFPE?</string>
+    <string name="questao4">Asaph foi TROUXA em não apresentar o projeto a Vilmar?</string>
+    <string name="questao5">Aldebaram é um cavaleiro de Ouro?</string>
+</resources>
