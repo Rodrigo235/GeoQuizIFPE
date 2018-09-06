@@ -14,4 +14,10 @@
     <string name="questao3">Carine está apaixonada pelo boy que fez eletro aki no IFPE?</string>
     <string name="questao4">Asaph foi TROUXA em não apresentar o projeto a Vilmar?</string>
     <string name="questao5">Aldebaram é um cavaleiro de Ouro?</string>
+
+    <string name="texto_alerta">Mas você está certo disso?</string>
+    <string name="mostrar_resposta">Mostrar resposta</string>
+    <string name="cheat_button">Trapacear!</string>
+    <string name="jugalmento">Trapacear é errado!</string>
+
 </resources>

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jefferson.quiz.Model.Questao;
+import com.example.jefferson.quiz.Model.TrapacearActivity;
 import com.example.jefferson.quiz.R;
 
 import java.util.Arrays;
@@ -21,6 +22,7 @@ public class Quiz extends AppCompatActivity {
 
     private Button botaoVerdadeiro;
     private Button botaoFalso;
+    private Button botaoTrapacear;
     private ImageButton botaoProximo;
     private ImageButton botaoVoltar;
     private int indiceAtual;
@@ -88,6 +90,18 @@ public class Quiz extends AppCompatActivity {
                 atualizarQuestao(-1);
             }
         });
+
+        botaoTrapacear = (Button) findViewById(R.id.button_trapacear);
+
+        botaoTrapacear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Quiz.this, TrapacearActivity.class);
+                intent.putExtra(TrapacearActivity.getExtraAnswerIsTrue(),conjuntoDeQuestoes[indiceAtual].isRespostaQuestao());
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void atualizarQuestao(int num) {
@@ -121,5 +135,6 @@ public class Quiz extends AppCompatActivity {
             atualizarQuestao(1);
         }
     }
+
 
 }
