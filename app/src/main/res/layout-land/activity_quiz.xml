@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:orientation="horizontal"
     tools:context=".Controller.Quiz">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="top|left|center"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="@string/pontuacao" />
 
         <TextView
             android:id="@+id/valor_pontuacao"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
 
     </LinearLayout>
 
@@ -29,25 +32,29 @@
         android:id="@+id/texto_da_questao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="top|center"
         android:padding="24dp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/respostaverdadeira"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
             android:layout_margin="0dp"
             android:text="@string/true_button"
-            tools:ignore="ButtonStyle"/>
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/respostafalsa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
             android:layout_margin="0dp"
             android:text="@string/false_button"
             tools:ignore="ButtonStyle" />
@@ -56,12 +63,14 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
         android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/botao_voltar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom|center"
             android:padding="20dp"
             android:rotation="90"
             app:srcCompat="@android:drawable/arrow_down_float" />
@@ -70,6 +79,7 @@
             android:id="@+id/botao_proximo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
             android:padding="20dp"
             android:rotation="-90"
             app:srcCompat="@android:drawable/arrow_down_float" />
@@ -77,10 +87,10 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/button_trapacear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button_trapacear"
-        android:text="@string/cheat_button"/>
+        android:layout_gravity="bottom|right"
+        android:text="@string/cheat_button" />
 
-
-</LinearLayout>
+</FrameLayout>

@@ -25,9 +25,12 @@ public class Quiz extends AppCompatActivity {
     private Button botaoTrapacear;
     private ImageButton botaoProximo;
     private ImageButton botaoVoltar;
-    private int indiceAtual;
+    private int indiceAtual = 0;
     private int pontuacao = 0;
     private int contador = 0;
+
+    private static final String KEY_POSICAO_ATUAL = "posicao";
+    private static final String KEY_PONTUACAO = "pontuacao";
 
     private TextView textoDaQuestao;
     private TextView textoDaPontuacao;
@@ -41,12 +44,22 @@ public class Quiz extends AppCompatActivity {
     };
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(savedInstanceState != null) {
+            indiceAtual = savedInstanceState.getInt(KEY_POSICAO_ATUAL);
+            pontuacao = savedInstanceState.getInt(KEY_PONTUACAO);
+        }
+        textoDaPontuacao = (TextView) findViewById(R.id.valor_pontuacao);
+        textoDaPontuacao.setText("" + pontuacao);
         setContentView(R.layout.activity_quiz);
 
-        Collections.shuffle(Arrays.asList(conjuntoDeQuestoes));
+
+
+        //Collections.shuffle(Arrays.asList(conjuntoDeQuestoes));
 
         textoDaQuestao = (TextView) findViewById(R.id.texto_da_questao);
 
@@ -102,6 +115,14 @@ public class Quiz extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+
+        savedInstanceState.putInt(KEY_POSICAO_ATUAL, indiceAtual);
+        savedInstanceState.putInt(KEY_PONTUACAO, pontuacao);
     }
 
     public void atualizarQuestao(int num) {

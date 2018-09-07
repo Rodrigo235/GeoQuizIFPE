@@ -10,9 +10,11 @@ import com.example.jefferson.quiz.R;
 
 public class TrapacearActivity extends AppCompatActivity {
 
+    Integer a;
     private Button mostrarResposta;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trapacear);
 
