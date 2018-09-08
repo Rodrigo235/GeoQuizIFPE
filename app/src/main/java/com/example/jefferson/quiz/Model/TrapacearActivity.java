@@ -1,30 +1,34 @@
 package com.example.jefferson.quiz.Model;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jefferson.quiz.R;
 
 public class TrapacearActivity extends AppCompatActivity {
 
-    Integer a;
     private Button mostrarResposta;
+    private String respotaDaQuestao;
+    private Questao questao;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trapacear);
-
         mostrarResposta = (Button) findViewById(R.id.mostrarResposta);
+        Intent intent = getIntent();
+        respotaDaQuestao = "" + intent.getBooleanArrayExtra(getExtraAnswerIsTrue());
+        System.out.print(respotaDaQuestao);
 
         mostrarResposta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getIntent();
-                Toast.makeText(TrapacearActivity.this,"True", Toast.LENGTH_LONG).show();
+                Toast.makeText(TrapacearActivity.this,respotaDaQuestao, Toast.LENGTH_LONG).show();
             }
         });
     }

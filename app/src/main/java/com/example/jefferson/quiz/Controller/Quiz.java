@@ -43,21 +43,19 @@ public class Quiz extends AppCompatActivity {
             new Questao(R.string.questao5, true)
     };
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         if(savedInstanceState != null) {
             indiceAtual = savedInstanceState.getInt(KEY_POSICAO_ATUAL);
             pontuacao = savedInstanceState.getInt(KEY_PONTUACAO);
+
         }
+        setContentView(R.layout.activity_quiz);
         textoDaPontuacao = (TextView) findViewById(R.id.valor_pontuacao);
         textoDaPontuacao.setText("" + pontuacao);
-        setContentView(R.layout.activity_quiz);
-
-
 
         //Collections.shuffle(Arrays.asList(conjuntoDeQuestoes));
 
@@ -123,6 +121,8 @@ public class Quiz extends AppCompatActivity {
 
         savedInstanceState.putInt(KEY_POSICAO_ATUAL, indiceAtual);
         savedInstanceState.putInt(KEY_PONTUACAO, pontuacao);
+
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     public void atualizarQuestao(int num) {
@@ -131,6 +131,7 @@ public class Quiz extends AppCompatActivity {
         if(contador == conjuntoDeQuestoes.length) {
             Toast.makeText(Quiz.this, "Pontuacao Final = " + pontuacao, Toast.LENGTH_LONG).show();
             contador = 0;
+            pontuacao = 0;
         }
         if(indiceAtual < 0) {
             indiceAtual = conjuntoDeQuestoes.length - 1;
@@ -156,6 +157,5 @@ public class Quiz extends AppCompatActivity {
             atualizarQuestao(1);
         }
     }
-
 
 }
