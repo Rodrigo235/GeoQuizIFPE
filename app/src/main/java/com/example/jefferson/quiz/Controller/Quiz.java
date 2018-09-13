@@ -31,6 +31,7 @@ public class Quiz extends AppCompatActivity {
 
     private static final String KEY_POSICAO_ATUAL = "posicao";
     private static final String KEY_PONTUACAO = "pontuacao";
+    private static final String KEY_RESPOSTA = "resposta";
 
     private TextView textoDaQuestao;
     private TextView textoDaPontuacao;

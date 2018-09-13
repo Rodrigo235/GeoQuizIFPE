@@ -23,7 +23,7 @@ public class TrapacearActivity extends AppCompatActivity {
         mostrarResposta = (Button) findViewById(R.id.mostrarResposta);
         Intent intent = getIntent();
         respotaDaQuestao = "" + intent.getBooleanArrayExtra(getExtraAnswerIsTrue());
-        System.out.print(respotaDaQuestao);
+        System.out.print(intent.getBooleanArrayExtra(EXTRA_ANSWER_IS_TRUE));
 
         mostrarResposta.setOnClickListener(new View.OnClickListener() {
             @Override
