@@ -3,7 +3,7 @@ package com.example.jefferson.quiz.Controller;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.AutoText;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -11,15 +11,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jefferson.quiz.Model.Questao;
-import com.example.jefferson.quiz.Model.TrapacearActivity;
 import com.example.jefferson.quiz.R;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Random;
 
 public class Quiz extends AppCompatActivity {
 
+    private static final String TAG = "QuizActivity";
     private Button botaoVerdadeiro;
     private Button botaoFalso;
     private Button botaoTrapacear;
@@ -47,6 +43,9 @@ public class Quiz extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.d(TAG, "método onCrate(): chamado");
+
 
 
         if(savedInstanceState != null) {
@@ -114,6 +113,36 @@ public class Quiz extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "método onResume(): chamado");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "método onDestroy(): chamado");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "método onPause(): chamado");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "método onStart(): chamado");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "método onStop(): chamado");
     }
 
     @Override
