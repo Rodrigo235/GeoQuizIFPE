@@ -13,6 +13,10 @@ import android.widget.Toast;
 import com.example.jefferson.quiz.Model.Questao;
 import com.example.jefferson.quiz.R;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Quiz extends AppCompatActivity {
 
     private static final String TAG = "QuizActivity";
@@ -32,16 +36,19 @@ public class Quiz extends AppCompatActivity {
     private TextView textoDaQuestao;
     private TextView textoDaPontuacao;
 
-    private Questao[] conjuntoDeQuestoes = new Questao[] {
-            new Questao(R.string.questao1, false),
-            new Questao(R.string.questao2, false),
-            new Questao(R.string.questao3, true),
-            new Questao(R.string.questao4, true),
-            new Questao(R.string.questao5, true)
-    };
+    private List<Questao> questoes = new ArrayList<Questao>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        questoes.add(new Questao(R.string.questao1, false, 3));
+        questoes.add(new Questao(R.string.questao2, false, 4));
+        questoes.add(new Questao(R.string.questao3, true, 6));
+        questoes.add(new Questao(R.string.questao4, true, 8));
+        questoes.add(new Questao(R.string.questao5, true, 3));
+
+
         super.onCreate(savedInstanceState);
 
         Log.d(TAG, "método onCrate(): chamado");
@@ -68,7 +75,7 @@ public class Quiz extends AppCompatActivity {
             }
         });
 
-        textoDaQuestao.setText(conjuntoDeQuestoes[indiceAtual].getIdQuestao());
+        textoDaQuestao.setText(questoes.get(indiceAtual).getIdQuestao());
 
         botaoVerdadeiro = (Button) findViewById(R.id.respostaverdadeira);
         botaoVerdadeiro.setOnClickListener(new View.OnClickListener() {
@@ -103,13 +110,15 @@ public class Quiz extends AppCompatActivity {
         });
 
         botaoTrapacear = (Button) findViewById(R.id.button_trapacear);
+        Collections.sort(questoes);
 
         botaoTrapacear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Quiz.this, TrapacearActivity.class);
-                intent.putExtra(TrapacearActivity.getExtraAnswerIsTrue(),conjuntoDeQuestoes[indiceAtual].isRespostaQuestao());
+                intent.putExtra(TrapacearActivity.getExtraAnswerIsTrue(),questoes.get(indiceAtual).isRespostaQuestao());
                 startActivity(intent);
+
             }
         });
 
@@ -158,22 +167,22 @@ public class Quiz extends AppCompatActivity {
     public void atualizarQuestao(int num) {
         indiceAtual = indiceAtual + num;
         contador++;
-        if(contador == conjuntoDeQuestoes.length) {
+        if(contador == questoes.size()) {
             Toast.makeText(Quiz.this, "Pontuacao Final = " + pontuacao, Toast.LENGTH_LONG).show();
             contador = 0;
             pontuacao = 0;
         }
         if(indiceAtual < 0) {
-            indiceAtual = conjuntoDeQuestoes.length - 1;
+            indiceAtual = questoes.size() - 1;
         } else {
-            indiceAtual = indiceAtual % conjuntoDeQuestoes.length;
+            indiceAtual = indiceAtual % questoes.size();
         }
-        int idQuestao = conjuntoDeQuestoes[indiceAtual].getIdQuestao();
+        int idQuestao = questoes.get(indiceAtual).getIdQuestao();
         textoDaQuestao.setText(idQuestao);
     }
 
     public void checarResposta (boolean respostaDoUsuario) {
-        if(respostaDoUsuario == conjuntoDeQuestoes[indiceAtual].isRespostaQuestao()){
+        if(respostaDoUsuario == questoes.get(indiceAtual).isRespostaQuestao()){
             Toast.makeText(Quiz.this,"Acerto Mizeravi toma 50!!", Toast.LENGTH_LONG).show();
             pontuacao = pontuacao + 50;
             textoDaPontuacao = (TextView) findViewById(R.id.valor_pontuacao);
