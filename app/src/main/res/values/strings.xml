@@ -19,5 +19,6 @@
     <string name="mostrar_resposta">Mostrar resposta</string>
     <string name="cheat_button">Trapacear!</string>
     <string name="jugalmento">Trapacear é errado!</string>
+    <string name="resposta" ></string>
 
 </resources>
