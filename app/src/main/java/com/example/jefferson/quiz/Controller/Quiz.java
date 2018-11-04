@@ -25,6 +25,7 @@ public class Quiz extends AppCompatActivity {
     private Button botaoTrapacear;
     private ImageButton botaoProximo;
     private ImageButton botaoVoltar;
+    private boolean usuarioTrapaceou;
     private int indiceAtual = 0;
     private int pontuacao = 0;
     private int contador = 0;
@@ -32,6 +33,7 @@ public class Quiz extends AppCompatActivity {
     private static final String KEY_POSICAO_ATUAL = "posicao";
     private static final String KEY_PONTUACAO = "pontuacao";
     private static final String KEY_RESPOSTA = "resposta";
+    private static final int REQUEST_CODE_CHEAT = 0;
 
     private TextView textoDaQuestao;
     private TextView textoDaPontuacao;
@@ -61,10 +63,10 @@ public class Quiz extends AppCompatActivity {
 
         }
         setContentView(R.layout.activity_quiz);
+
+
         textoDaPontuacao = (TextView) findViewById(R.id.valor_pontuacao);
         textoDaPontuacao.setText("" + pontuacao);
-
-        //Collections.shuffle(Arrays.asList(conjuntoDeQuestoes));
 
         textoDaQuestao = (TextView) findViewById(R.id.texto_da_questao);
 
@@ -81,6 +83,10 @@ public class Quiz extends AppCompatActivity {
         botaoVerdadeiro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (usuarioTrapaceou == true) {
+                    usuarioTrapaceou = false;
+                    Toast.makeText(Quiz.this,"SAFADO OLHOU",Toast.LENGTH_LONG).show();
+                }
                 checarResposta(true);
             }
         });
@@ -89,6 +95,10 @@ public class Quiz extends AppCompatActivity {
         botaoFalso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (usuarioTrapaceou == true) {
+                    usuarioTrapaceou = false;
+                    Toast.makeText(Quiz.this,"SAFADO OLHOU",Toast.LENGTH_LONG).show();
+                }
                 checarResposta(false);
             }
         });
@@ -115,9 +125,9 @@ public class Quiz extends AppCompatActivity {
         botaoTrapacear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Quiz.this, TrapacearActivity.class);
-                intent.putExtra(TrapacearActivity.getExtraAnswerIsTrue(),questoes.get(indiceAtual).isRespostaQuestao());
-                startActivity(intent);
+                boolean answerIsTrue = questoes.get(indiceAtual).isRespostaQuestao();
+                Intent intent = TrapacearActivity.newIntent(Quiz.this, answerIsTrue);
+                startActivityForResult(intent, REQUEST_CODE_CHEAT);
 
             }
         });
@@ -164,6 +174,23 @@ public class Quiz extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
     }
 
+    // pega o resultado da outra atividade pelo mapa (Intent)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Quiz.RESULT_OK) {
+            return;
+        }
+
+        if (requestCode == REQUEST_CODE_CHEAT) {
+            if (data == null) {
+                return;
+            }
+            // pegar a verificacao se ele trapaceou ou não
+            usuarioTrapaceou = TrapacearActivity.wasAnswerShown(data);
+        }
+    }
+
+
     public void atualizarQuestao(int num) {
         indiceAtual = indiceAtual + num;
         contador++;
@@ -171,6 +198,7 @@ public class Quiz extends AppCompatActivity {
             Toast.makeText(Quiz.this, "Pontuacao Final = " + pontuacao, Toast.LENGTH_LONG).show();
             contador = 0;
             pontuacao = 0;
+            textoDaPontuacao.setText("" + pontuacao);
         }
         if(indiceAtual < 0) {
             indiceAtual = questoes.size() - 1;
@@ -196,5 +224,8 @@ public class Quiz extends AppCompatActivity {
             atualizarQuestao(1);
         }
     }
+
+
+
 
 }

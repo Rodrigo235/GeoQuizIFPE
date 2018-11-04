@@ -1,11 +1,12 @@
 package com.example.jefferson.quiz.Controller;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import com.example.jefferson.quiz.Model.Questao;
+import android.widget.TextView;
 import com.example.jefferson.quiz.R;
 
 public class TrapacearActivity extends AppCompatActivity {
@@ -13,8 +14,16 @@ public class TrapacearActivity extends AppCompatActivity {
     private Button mostrarResposta;
     private boolean respotaDaQuestao;
     private TextView txtDaQuestao;
+    private static final String EXTRA_ANSWER_SHOWN =  "com.example.jefferson.quiz.verResposta";
+    private static final String EXTRA_ANSWER_IS_TRUE = "com.example.jefferson.quiz.Model";
 
-    private Questao questao;
+    // cria uma um intente (ligação entre atividades) recebendo a atividade que está fazendo ligação a resposta
+    public static Intent newIntent(Context packageContext, boolean answerIsTrue) {
+        Intent intent = new Intent(packageContext, TrapacearActivity.class);
+        intent.putExtra(EXTRA_ANSWER_IS_TRUE, answerIsTrue);
+        return intent;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -28,16 +37,24 @@ public class TrapacearActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                txtDaQuestao.setText("" + respotaDaQuestao);
+                txtDaQuestao.setText(respotaDaQuestao == true ?
+                        R.string.true_button :
+                        R.string.false_button);
+                // seto que o usuário olhou a resposta, ou seja, trapaceou
+                setAnswerShownResult(true);
             }
 
         });
     }
-    private static final String EXTRA_ANSWER_IS_TRUE = "com.example.jefferson.quiz.Model";
-
-    public static String getExtraAnswerIsTrue(){
-        return EXTRA_ANSWER_IS_TRUE;
+// método que irá dizer se o usuário trapaceou ou não e guardar no intent (mapa)
+    private void setAnswerShownResult(boolean respostaApareceu) {
+        Intent data = new Intent();
+        data.putExtra(EXTRA_ANSWER_SHOWN,respostaApareceu);
+        setResult(RESULT_OK, data);
     }
-
+// retornar se ele trapaceou ou nao
+    public static boolean wasAnswerShown(Intent result) {
+        return result.getBooleanExtra(EXTRA_ANSWER_SHOWN, false);
+    }
 
 }
